@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cam Tech Talks - Technology Insights and Tutorials</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--accent);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: var(--light);
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 25px;
+        }
+        
+        .nav-menu a {
+            color: white;
+            font-weight: 500;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            margin: 40px 0;
+            gap: 30px;
+        }
+        
+        .posts {
+            flex: 2;
+        }
+        
+        .sidebar {
+            flex: 1;
+        }
+        
+        /* Post Styles */
+        .post {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .post-header {
+            margin-bottom: 15px;
+        }
+        
+        .post-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .post-meta {
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .post-content {
+            margin-bottom: 20px;
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: #f1f1f1;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .widget-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .about-widget img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .categories-list, .recent-posts-list {
+            list-style: none;
+        }
+        
+        .categories-list li, .recent-posts-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li:last-child, .recent-posts-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .categories-list a, .recent-posts-list a {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories-list span {
+            background: #f1f1f1;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        /* Newsletter Widget */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-widget {
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        .footer-widget h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .footer-widget {
+                padding: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-menu li {
+                margin-left: 0;
+            }
+            
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .post-title {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .post-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .post-tags {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Cam Tech Talks</h1>
+                    <p>Technology Insights and Tutorials</p>
+                </div>
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Latest Technology Insights & Tutorials</h2>
+            <p>Stay updated with the newest trends in technology, programming, and digital innovation with in-depth tutorials and analysis.</p>
+            <a href="#" class="btn">Explore Articles</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Posts Section -->
+            <div class="posts">
+                <!-- Post 1 -->
+                <article class="post">
+                    <div class="post-header">
+                        <h2 class="post-title">Getting Started with React Hooks</h2>
+                        <div class="post-meta">
+                            <span>By Admin</span>
+                            <span>May 15, 2023</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>React Hooks have revolutionized how we write React components. In this tutorial, we'll explore the most commonly used hooks and how they can simplify your code...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Web Development</span>
+                        </div>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post">
+                    <div class="post-header">
+                        <h2 class="post-title">Python vs JavaScript: Which Should You Learn in 2023?</h2>
+                        <div class="post-meta">
+                            <span>By Admin</span>
+                            <span>May 10, 2023</span>
+                            <span>7 min read</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Both Python and JavaScript are incredibly popular programming languages, but they serve different purposes. In this comparison, we break down the strengths and use cases for each language...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Programming</span>
+                        </div>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post">
+                    <div class="post-header">
+                        <h2 class="post-title">The Future of AI in Web Development</h2>
+                        <div class="post-meta">
+                            <span>By Admin</span>
+                            <span>May 5, 2023</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Artificial Intelligence is transforming how we build and interact with websites. From automated code generation to personalized user experiences, AI is set to revolutionize web development...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-tags">
+                            <span class="tag">AI</span>
+                            <span class="tag">Web Development</span>
+                            <span class="tag">Future Tech</span>
+                        </div>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- About Widget -->
+                <div class="sidebar-widget about-widget">
+                    <h3 class="widget-title">About Cam Tech Talks</h3>
+                    <img src="https://placehold.co/300x200/2c3e50/ffffff?text=Tech+Blog" alt="Cam Tech Talks">
+                    <p>Cam Tech Talks is a technology blog focused on providing insightful tutorials, reviews, and news about the latest in tech and programming.</p>
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>IG</span></a>
+                        <a href="#"><span>YT</span></a>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Web Development <span>12</span></a></li>
+                        <li><a href="#">Programming <span>8</span></a></li>
+                        <li><a href="#">Mobile Apps <span>5</span></a></li>
+                        <li><a href="#">AI & Machine Learning <span>7</span></a></li>
+                        <li><a href="#">Hardware Reviews <span>4</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <ul class="recent-posts-list">
+                        <li><a href="#">Getting Started with React Hooks</a></li>
+                        <li><a href="#">Python vs JavaScript: Which Should You Learn?</a></li>
+                        <li><a href="#">The Future of AI in Web Development</a></li>
+                        <li><a href="#">Building Responsive Websites with CSS Grid</a></li>
+                        <li><a href="#">Introduction to Node.js for Beginners</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Newsletter</h3>
+                    <p>Subscribe to get the latest posts directly in your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-widget">
+                    <h3>About Cam Tech Talks</h3>
+                    <p>Your go-to resource for technology tutorials, reviews, and insights. We break down complex tech topics into understandable content.</p>
+                </div>
+                <div class="footer-widget">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Programming</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">AI & Machine Learning</a></li>
+                        <li><a href="#">Hardware Reviews</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Cam Tech Talks. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
